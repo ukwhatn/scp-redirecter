@@ -6,7 +6,7 @@ $(document).ready(function () {
     if (hrefRegExp.test(href)) {
         var arguments = href.slice(href.search(hrefRegExp) + 1);
 
-        link = replace(arguments)
+        link = buildUrl(arguments)
 
         window.location.replace(link);
     } else {
@@ -14,7 +14,7 @@ $(document).ready(function () {
         window.location.replace('http://scp-jp.wikidot.com/');
     }
 
-    function replace(arguments) {
+    function buildUrl(arguments) {
         if (/=/g.test(arguments)) {
             var args = arguments.split("&");
             var name, site, scheme;
@@ -25,13 +25,10 @@ $(document).ready(function () {
                 if (/site=[A-Za-z0-9\-]+/g.test(args[i])) {
                     site = args[i].slice(args[i].search(/=[A-Za-z0-9\-]+/g) + 1);
                 }
-                if (/scheme=[A-Za-z0-9\-]+/g.test(args[i])) {
-                    scheme = args[i].slice(args[i].search(/=[A-Za-z0-9\-]+/g) + 1);
-                }
             }
-            console.log("name = "+ name);
-            console.log("site = "+ site);
-            console.log("scheme = "+ scheme);
+            console.log("name = " + name);
+            console.log("site = " + site);
+            console.log("scheme = " + scheme);
             if (site == undefined) {
                 site = "scp-jp";
             }
@@ -40,7 +37,7 @@ $(document).ready(function () {
             }
             link = scheme + "://" + site + ".wikidot.com/" + name;
         } else {
-            link = "https://scp-jp.wikidot.com/" + arguments;
+            link = "http://scp-jp.wikidot.com/" + arguments;
         }
         return link;
     }
